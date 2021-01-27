@@ -1,9 +1,25 @@
 require('./bootstrap');
 
 import Vue from 'vue'
-import App from './vue/app'
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+let routes = [
+    { path: '/', component: require('./components/Dashboard.vue').default },
+  
+  ]
+
+  const router = new VueRouter({
+    mode: 'history',
+    routes 
+  })
+
+  
+Vue.component(
+    'Post',
+    require('./components/Post.vue').default
+  );
 
 const app=new Vue({
     el:'#app',
-    components: { App }
+    router,
 });
