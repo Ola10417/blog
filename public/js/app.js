@@ -1920,13 +1920,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1968,7 +1961,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['post']
+});
 
 /***/ }),
 
@@ -19624,17 +19619,9 @@ var render = function() {
     _c(
       "div",
       _vm._l(_vm.posts, function(post) {
-        return _c("div", { key: post }, [
-          _c("h3", [_vm._v(_vm._s(post.title))]),
-          _vm._v(" "),
-          _c("h5", [_vm._v(_vm._s(post.created_at))]),
-          _vm._v(" "),
-          _c("div", [
-            _vm._v("\n                " + _vm._s(post.body) + "\n            ")
-          ])
-        ])
+        return _c("Post", { key: post.id, attrs: { post: post } })
       }),
-      0
+      1
     ),
     _vm._v(" "),
     _vm._m(0)
@@ -19676,11 +19663,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h3", [_vm._v(_vm._s(_vm.title))]),
+    _c("h3", [_vm._v(_vm._s(_vm.post.title))]),
     _vm._v(" "),
-    _c("h5", [_vm._v(_vm._s(_vm.created_at))]),
+    _c("h5", [_vm._v(_vm._s(_vm.post.created_at))]),
     _vm._v(" "),
-    _c("div", [_vm._v("\n        " + _vm._s(_vm.body) + "\n    ")])
+    _c("div", [_vm._v("\n        " + _vm._s(_vm.post.body) + "\n    ")])
   ])
 }
 var staticRenderFns = []

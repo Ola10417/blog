@@ -1,14 +1,7 @@
 <template>
     <div>
         <div>
-            <div v-for="post in posts" :key="post">
-
-                <h3>{{post.title}}</h3>
-                <h5>{{post.created_at}}</h5>
-                <div>
-                    {{post.body}}
-                </div>
-            </div>
+            <Post :post="post" v-for="post in posts" :key="post.id" />
         </div>
         <div>
             <div></div>

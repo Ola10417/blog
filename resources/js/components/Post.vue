@@ -1,14 +1,16 @@
 <template>
     <div>
-        <h3>{{title}}</h3>
-        <h5>{{created_at}}</h5>
+        <h3>{{post.title}}</h3>
+        <h5>{{post.created_at}}</h5>
         <div>
-            {{body}}
+            {{post.body}}
         </div>
     </div>
 </template>
 <script>
 export default {
-    
+    props: [
+        'post'
+    ],
 }
 </script>
