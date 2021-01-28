@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/posts', 'App\Http\Controllers\PostsController@index');
+Route::get('/popularPosts', 'App\Http\Controllers\PostsController@getPopularPosts');
 Route::get('/posts/{id}', 'App\Http\Controllers\PostsController@show');

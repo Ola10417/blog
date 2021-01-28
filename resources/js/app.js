@@ -18,6 +18,10 @@ Vue.component(
     'Post',
     require('./components/Post.vue').default
   );
+  Vue.component(
+    'PopularPosts',
+    require('./components/PopularPosts.vue').default
+  );
 
 const app=new Vue({
     el:'#app',

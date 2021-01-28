@@ -4,7 +4,10 @@
             <Post :post="post" v-for="post in posts" :key="post.id" />
         </div>
         <div>
-            <div></div>
+            <div>
+                <h3>Popularne wpisy</h3>
+                <PopularPosts :popularPost="popularPost" v-for="popularPost in popularPosts" :key="popularPost.id" />
+            </div>
             <div></div>
             <div></div>
         </div>
@@ -14,7 +17,8 @@
 export default {
     data(){
         return{
-            posts:{}
+            posts:{},
+            popularPosts:{}
         }
     },
     methods:{
@@ -23,7 +27,12 @@ export default {
             .then(response => {
               this.posts = response.data;
             });
-            console.log(this.posts)
+
+            axios.get('api/popularPosts')
+            .then(response => {
+              this.popularPosts = response.data;
+            });
+
         }
     },
     created(){

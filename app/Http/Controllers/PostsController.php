@@ -16,6 +16,12 @@ class PostsController extends Controller
         return Post::all();
     }
 
+    public function getPopularPosts()
+    {
+        $posts=Post::orderBy('popularity','desc')->take(10)->get();
+        return $posts;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
