@@ -27,6 +27,11 @@ Vue.component(
     require('./components/viewPost.vue').default
   );
 
+  
+  Vue.filter('cutbody',function (val) {
+    return val.slice(0,300)+val[300].replace(/\W+/g, '')+"...";
+})
+
 const app=new Vue({
     el:'#app',
     router,

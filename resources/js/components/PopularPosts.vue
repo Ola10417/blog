@@ -1,6 +1,6 @@
 <template>
     <div>
-         <h5>{{popularPost.title}}</h5>
+         <h5><router-link :to="{ name: 'viewPost', params: { id: popularPost.id } }">{{popularPost.title}}</router-link></h5>
     </div>
 </template>
 <script>

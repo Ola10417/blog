@@ -1927,11 +1927,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      posts: {},
-      popularPosts: {}
+      search: false,
+      searchQuery: null,
+      posts: [],
+      popularPosts: [],
+      filteredResources: []
     };
   },
   methods: {
@@ -1944,6 +1949,17 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('api/popularPosts').then(function (response) {
         _this.popularPosts = response.data;
       });
+    }
+  },
+  watch: {
+    searchQuery: function searchQuery() {
+      var _this2 = this;
+
+      this.search = true;
+      this.filteredResources = this.posts.filter(function (post) {
+        return post.title.match(_this2.searchQuery);
+      });
+      console.log(this.filteredResources);
     }
   },
   created: function created() {
@@ -1982,6 +1998,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2031,7 +2048,6 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('api/posts/' + this.$route.params.id).then(function (response) {
         _this.post = response.data;
       });
-      console.log(this.post);
     }
   },
   created: function created() {
@@ -19690,13 +19706,54 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      _vm._l(_vm.posts, function(post) {
-        return _c("Post", { key: post.id, attrs: { post: post } })
+    _c("div", [
+      _c("h3", [_vm._v("Szukaj postów")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.searchQuery,
+            expression: "searchQuery"
+          }
+        ],
+        attrs: { type: "text", placeholder: "Tytuł posta" },
+        domProps: { value: _vm.searchQuery },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.searchQuery = $event.target.value
+          }
+        }
       }),
-      1
-    ),
+      _vm._v(" "),
+      _c("button", [_vm._v("Szukaj")])
+    ]),
+    _vm._v(" "),
+    _c("div", [
+      !_vm.search
+        ? _c(
+            "div",
+            _vm._l(_vm.posts, function(post) {
+              return _c("Post", { key: post.id, attrs: { post: post } })
+            }),
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.search
+        ? _c(
+            "div",
+            _vm._l(_vm.filteredResources, function(post) {
+              return _c("Post", { key: post.id, attrs: { post: post } })
+            }),
+            1
+          )
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c("div", [
       _c(
@@ -19714,26 +19771,11 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
       _c("div")
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("h3", [_vm._v("Szukaj postów")]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "text", placeholder: "Tytuł posta" } }),
-      _vm._v(" "),
-      _c("button", [_vm._v("Szukaj")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -19755,7 +19797,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("h5", [_vm._v(_vm._s(_vm.popularPost.title))])])
+  return _c("div", [
+    _c(
+      "h5",
+      [
+        _c(
+          "router-link",
+          {
+            attrs: {
+              to: { name: "viewPost", params: { id: _vm.popularPost.id } }
+            }
+          },
+          [_vm._v(_vm._s(_vm.popularPost.title))]
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -19794,7 +19852,22 @@ var render = function() {
     _vm._v(" "),
     _c("h5", [_vm._v(_vm._s(_vm.post.created_at))]),
     _vm._v(" "),
-    _c("div", [_vm._v("\n        " + _vm._s(_vm.post.body) + "\n    ")])
+    _c(
+      "div",
+      [
+        _vm._v(
+          "\n        " +
+            _vm._s(_vm._f("cutbody")(_vm.post.body)) +
+            " \n        "
+        ),
+        _c(
+          "router-link",
+          { attrs: { to: { name: "viewPost", params: { id: _vm.post.id } } } },
+          [_c("button", [_vm._v("Czytaj dalej")])]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -35196,6 +35269,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Post', __webpack_require__(/*! ./components/Post.vue */ "./resources/js/components/Post.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('PopularPosts', __webpack_require__(/*! ./components/PopularPosts.vue */ "./resources/js/components/PopularPosts.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('viewPost', __webpack_require__(/*! ./components/viewPost.vue */ "./resources/js/components/viewPost.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('cutbody', function (val) {
+  return val.slice(0, 300) + val[300].replace(/\W+/g, '') + "...";
+});
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: router

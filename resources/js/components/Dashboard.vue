@@ -1,18 +1,20 @@
 <template>
     <div>
         <div>
-            <Post :post="post" v-for="post in posts" :key="post.id" />
+                <h3>Szukaj postów</h3>
+                <input type="text" placeholder="Tytuł posta" v-model="searchQuery">
+                <button >Szukaj</button>
+            </div>
+        <div>
+            <div v-if="!search"><Post :post="post" v-for="post in posts" :key="post.id" /></div>
+            <div v-if="search"><Post :post="post" v-for="post in filteredResources" :key="post.id" /></div>
         </div>
         <div>
             <div>
                 <h3>Popularne wpisy</h3>
                 <PopularPosts :popularPost="popularPost" v-for="popularPost in popularPosts" :key="popularPost.id" />
             </div>
-            <div>
-                <h3>Szukaj postów</h3>
-                <input type="text" placeholder="Tytuł posta">
-                <button>Szukaj</button>
-            </div>
+            
             <div></div>
         </div>
     </div>
@@ -21,8 +23,11 @@
 export default {
     data(){
         return{
-            posts:{},
-            popularPosts:{}
+            search:false,
+            searchQuery: null,
+            posts:[],
+            popularPosts:[],
+            filteredResources: []
         }
     },
     methods:{
@@ -36,9 +41,22 @@ export default {
             .then(response => {
               this.popularPosts = response.data;
             });
+            
+        
+        }
 
+    },
+    
+    watch: {
+        searchQuery() {
+        this.search=true
+        this.filteredResources = this.posts.filter(post =>
+            post.title.match(this.searchQuery)
+        );
+        console.log(this.filteredResources);
         }
     },
+    
     created(){
         this.getResults()
     }

@@ -4,7 +4,7 @@
         <h3>{{post.title}}</h3>
         <h5>{{post.created_at}}</h5>
         <div>
-            {{post.body}}
+            {{post.body }}
         </div>
     </div>
 </div>
@@ -23,7 +23,7 @@ export default {
             axios.get('api/posts/'+this.$route.params.id).then(response => {
               this.post = response.data;
             });
-            console.log(this.post)
+            
         }
     },
     created(){
