@@ -1,7 +1,6 @@
 <template>
     <div>
-        
-        <h3>{{post.title}}</h3>
+        <h3><router-link :to="{ name: 'viewPost', params: { id: post.id } }">{{post.title}}</router-link></h3>
         <h5>{{post.created_at}}</h5>
         <div>
             {{post.body}}

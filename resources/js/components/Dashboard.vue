@@ -8,7 +8,11 @@
                 <h3>Popularne wpisy</h3>
                 <PopularPosts :popularPost="popularPost" v-for="popularPost in popularPosts" :key="popularPost.id" />
             </div>
-            <div></div>
+            <div>
+                <h3>Szukaj postów</h3>
+                <input type="text" placeholder="Tytuł posta">
+                <button>Szukaj</button>
+            </div>
             <div></div>
         </div>
     </div>
