@@ -22,6 +22,15 @@ class PostsController extends Controller
         return $posts;
     }
 
+    public function updatePopularity(Request $request, $id)
+    {
+        $post=Post::findOrFail($id);
+        $post->popularity=$request->popularity;
+        $post->save();
+        
+        return ['message' => 'Dziękujemy za opinię!'];
+    }
+
     /**
      * Show the form for creating a new resource.
      *
