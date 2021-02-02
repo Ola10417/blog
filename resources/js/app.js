@@ -2,6 +2,9 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Cookies from 'js-cookie'
+import { v4 as uuidv4 } from 'uuid'
+
 Vue.use(VueRouter)
 let routes = [
     { name:'dashboard', path: '/', component: require('./components/Dashboard.vue').default },
@@ -14,6 +17,9 @@ let routes = [
   })
 
   
+window.Cookies=Cookies;
+window.uuidv4=uuidv4;
+
 Vue.component(
     'Post',
     require('./components/Post.vue').default

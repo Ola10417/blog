@@ -42,7 +42,15 @@ export default {
               this.popularPosts = response.data;
             });
             
-        
+            
+        },
+        createUserCookie(){
+            if(!Cookies.get('uuid'))
+            {
+            Cookies.set('uuid',uuidv4(), { expires: 10000, secure: true, sameSite: 'strict' })
+            
+            }
+            console.log(Cookies.get('uuid'))
         }
 
     },
@@ -59,6 +67,7 @@ export default {
     
     created(){
         this.getResults()
+        this.createUserCookie()
     }
 }
 </script>
