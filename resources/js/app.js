@@ -8,8 +8,9 @@ import Swal from 'sweetalert2'
 
 Vue.use(VueRouter)
 let routes = [
-    { name:'dashboard', path: '/', component: require('./components/Dashboard.vue').default },
-    { name:'viewPost', path: '/posts/:id', component: require('./components/viewPost.vue').default, props: true },
+    { name:'dashboard', path: '/', component: require('./components/Posts/Dashboard.vue').default },
+    { name:'viewPost', path: '/posts/:id', component: require('./components/Posts/viewPost.vue').default, props: true },
+    { name:'aboutMe', path: '/about-me', component: require('./components/aboutMe.vue').default},
   ]
 
   const router = new VueRouter({
@@ -24,15 +25,15 @@ window.uuidv4=uuidv4;
 
 Vue.component(
     'Post',
-    require('./components/Post.vue').default
+    require('./components/Posts/Post.vue').default
   );
   Vue.component(
     'PopularPosts',
-    require('./components/PopularPosts.vue').default
+    require('./components/Posts/PopularPosts.vue').default
   );
   Vue.component(
     'viewPost',
-    require('./components/viewPost.vue').default
+    require('./components/Posts/viewPost.vue').default
   );
 
   
