@@ -4,6 +4,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Cookies from 'js-cookie'
 import { v4 as uuidv4 } from 'uuid'
+import Swal from 'sweetalert2'
 
 Vue.use(VueRouter)
 let routes = [
@@ -16,7 +17,8 @@ let routes = [
     routes 
   })
 
-  
+
+window.Swal=Swal;
 window.Cookies=Cookies;
 window.uuidv4=uuidv4;
 

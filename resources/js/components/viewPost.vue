@@ -9,7 +9,6 @@
         
     </div>
     <div>
-        {{post.popularity}}
             <h5>Oceń ten artykuł!</h5>
             <div :id="post.id" >
             <button @click="ratePost(2)"><i class="fas fa-heart" style="font-size:32px;" ></i></button>
@@ -67,36 +66,37 @@ export default {
                 {
                     
                     if(this.checkIfUserHasAlreadyRated()){
-                        alert('Juz zaglosowales!')
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Ups...',
+                        text: 'Już zagłosowałeś!'
+                        })
                     }
                     else
                     {
-                        this.post.popularity+=points
-                        
-                        axios.put('api/posts/' + this.$route.params.id, { 
-                            popularity: this.post.popularity   
-                        })
-                        .then(function (response) {
-                            console.log('ok');
-                        })
-                        .catch(function (error) {
-                            console.log('blad');            
-                        });
 
                         axios.post('api/rating',{
                             user: Cookies.get('uuid'),
                             post_id: this.$route.params.id,
                             points: points
-                        });
+                        }).then(function (response) {
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'Dziękujemy za ocenę!',
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
+                        })
+                        .catch(function (error) {
+                            console.log('blad');            
+                        });;
                         
                     this.getRating();
                     }
                     
                 }
             }
-            
-
-            
+          
         },
         
     },
@@ -118,14 +118,4 @@ i:hover{
     color:blue;
 }
 
-.fa-heart:active{
-    color: rgb(211, 22, 22);
-    cursor: disabled;
-}
-.heart:visited{
-    color: rgb(211, 22, 22);
-}
-.far:active{
-    color:blue;
-}
 </style>
