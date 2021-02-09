@@ -25,3 +25,7 @@ Route::put('/posts/{id}', 'App\Http\Controllers\PostsController@updatePopularity
 
 Route::get('/rating', 'App\Http\Controllers\RatingController@index');
 Route::post('/rating', 'App\Http\Controllers\RatingController@store');
+
+Route::get('/comments', 'App\Http\Controllers\CommentController@index');
+Route::get('/comments/{id}', 'App\Http\Controllers\CommentController@show');
+Route::post('/comments', 'App\Http\Controllers\CommentController@store');

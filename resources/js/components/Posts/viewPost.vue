@@ -16,10 +16,19 @@
             <button @click="ratePost(-1)"><i class="far fa-thumbs-down" style="font-size:32px;"></i></button>
             </div>
     </div>
+    <div>
+        napisz komentarz
+        <AddComment />
+        
+        Komentarze <br>
+        <Comment />
+    </div>
 </div>
 </template>
 <script>
+import Comment from './Comment.vue';
 export default {
+  components: { Comment },
     
     data(){
         return{

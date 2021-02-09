@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
-class PostsController extends Controller
+use App\Models\Comment;
+
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,15 +14,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        return Comment::all();
     }
-
-    public function getPopularPosts()
-    {
-        $posts=Post::orderBy('popularity','desc')->take(10)->get();
-        return $posts;
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -41,7 +35,20 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'user'=>'required',
+            'userName'=>'required|max:255',
+            'post_id'=>'required',
+            'comment'=>'required|max:255'
+        ]);
+
+        $comment=new Comment;
+        $comment->user=$request->user;
+        $comment->userName=$request->userName;
+        $comment->comment=$request->comment;
+        $comment->post_id=$request->post_id;
+        $comment->save();
+        return ['message' => 'Dziękujemy za komentarz!']; 
     }
 
     /**
@@ -52,7 +59,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return Post::find($id);
+        return Comment::where('post_id',$id)->get();
     }
 
     /**
