@@ -13,6 +13,7 @@
             <div v-for="comment in comments" v-bind:key="comment.id">
                 <h4>{{comment.userName}}</h4>
                 <h5>{{comment.comment}}</h5>
+                <h5>{{comment.created_at}}</h5>
             </div>
         </div>
         <div v-else>
@@ -47,7 +48,8 @@ export default {
           this.form.post_id=this.$route.params.id
           this.form.post('api/comments')
           .then(()=>{
-              this.comments.push(this.form);
+              this.getComments()
+              this.form.reset()
             })
         
             

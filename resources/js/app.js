@@ -12,6 +12,7 @@ let routes = [
     { name:'dashboard', path: '/', component: require('./components/Posts/Dashboard.vue').default },
     { name:'viewPost', path: '/posts/:id', component: require('./components/Posts/viewPost.vue').default, props: true },
     { name:'aboutMe', path: '/about-me', component: require('./components/aboutMe.vue').default},
+    { name:'contactMe', path: '/contact-me', component: require('./components/contactMe.vue').default},
   ]
 
   const router = new VueRouter({
