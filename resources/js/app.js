@@ -1,54 +1,32 @@
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
 require('./bootstrap');
 
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Cookies from 'js-cookie'
-import { v4 as uuidv4 } from 'uuid'
-import Swal from 'sweetalert2'
-import { Form, HasError, AlertError } from 'vform'
+window.Vue = require('vue').default;
 
-Vue.use(VueRouter)
-let routes = [
-    { name:'dashboard', path: '/', component: require('./components/Posts/Dashboard.vue').default },
-    { name:'viewPost', path: '/posts/:id', component: require('./components/Posts/viewPost.vue').default, props: true },
-    { name:'aboutMe', path: '/about-me', component: require('./components/aboutMe.vue').default},
-    { name:'contactMe', path: '/contact-me', component: require('./components/contactMe.vue').default},
-  ]
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
 
-  const router = new VueRouter({
-    mode: 'hash',
-    routes 
-  })
+// const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-window.Swal=Swal;
-window.Cookies=Cookies;
-window.uuidv4=uuidv4;
-window.Form=Form;
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
-Vue.component(
-    'Post',
-    require('./components/Posts/Post.vue').default
-  );
-  Vue.component(
-    'PopularPosts',
-    require('./components/Posts/PopularPosts.vue').default
-  );
-  Vue.component(
-    'viewPost',
-    require('./components/Posts/viewPost.vue').default
-  );
-  Vue.component(
-    'Comment',
-    require('./components/Posts/Comment.vue').default
-  );
-
-  
-  Vue.filter('cutbody',function (val) {
-    return val.slice(0,300)+val[300].replace(/\W+/g, '')+"...";
-})
-
-const app=new Vue({
-    el:'#app',
-    router,
+const app = new Vue({
+    el: '#app',
 });
