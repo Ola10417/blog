@@ -4,7 +4,16 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+<<<<<<< HEAD
 require('./bootstrap');
+=======
+Vue.use(VueRouter)
+let routes = [
+    { name:'dashboard', path: '/', component: require('./components/Posts/Dashboard.vue').default },
+    { name:'viewPost', path: '/posts/:id', component: require('./components/Posts/viewPost.vue').default, props: true },
+    { name:'aboutMe', path: '/about-me', component: require('./components/aboutMe.vue').default},
+  ]
+>>>>>>> parent of 7277038... added reset input, contact me and made buttons colored if user has voted
 
 window.Vue = require('vue').default;
 

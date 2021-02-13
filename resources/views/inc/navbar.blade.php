@@ -13,7 +13,7 @@
                 <a class="nav-link" href="#/about-me">O mnie</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link " href="#/contact-me"  >Kontakt</a>
+                <a class="nav-link " href="#"  >Kontakt</a>
                 </li>
             </ul>
             </div>

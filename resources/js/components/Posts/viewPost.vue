@@ -11,17 +11,16 @@
     <div>
             <h5>Oceń ten artykuł!</h5>
             <div :id="post.id" >
-            <button v-if="!ratedHeart" @click="ratePost(2)"><i class="fas fa-heart" style="font-size:32px;" ></i></button>
-            <button v-if="ratedHeart" @click="showAlertThatUserHasAlreadyVoted()"><i class="fas fa-heart" style="font-size:32px; color:red;" ></i></button>
-            <button v-if="!ratedUpvote" @click="ratePost(1)"><i class="far fa-thumbs-up" style="font-size:32px;"></i></button>
-            <button v-if="ratedUpvote" @click="showAlertThatUserHasAlreadyVoted()"><i class="far fa-thumbs-up" style="font-size:32px; color:blue;"></i></button>
-            <button v-if="!ratedDownvote" @click="ratePost(-1)"><i class="far fa-thumbs-down" style="font-size:32px;"></i></button>
-            <button v-if="ratedDownvote" @click="showAlertThatUserHasAlreadyVoted()"><i class="far fa-thumbs-down" style="font-size:32px; color:blue;"></i></button>
-
+            <button @click="ratePost(2)"><i class="fas fa-heart" style="font-size:32px;" ></i></button>
+            <button @click="ratePost(1)"><i class="far fa-thumbs-up" style="font-size:32px;"></i></button>
+            <button @click="ratePost(-1)"><i class="far fa-thumbs-down" style="font-size:32px;"></i></button>
             </div>
     </div>
     <div>
+        napisz komentarz
+        <AddComment />
         
+        Komentarze <br>
         <Comment />
     </div>
 </div>
@@ -34,10 +33,7 @@ export default {
     data(){
         return{
             post:{},
-            rating:[],
-            ratedHeart:false,
-            ratedUpvote:false,
-            ratedDownvote:false,
+            rating:[]
         }
     },
     methods:{
@@ -53,49 +49,41 @@ export default {
             axios.get('api/rating')
             .then(response => {
             this.rating = response.data;
-            this.checkIfUserHasAlreadyRated()
             });
-            
-        },
-
-        showAlertThatUserHasAlreadyVoted(){
-            Swal.fire({
-                        icon: 'error',
-                        title: 'Ups...',
-                        text: 'Już zagłosowałeś!'
-                        })  
         },
 
         checkIfUserHasAlreadyRated()
         {
             for(var i=0; i <this.rating.length; i++)
             {
+                console.log('dzialaj')
                 for(var rat in this.rating)
                 {
                     if(this.rating[rat].user==Cookies.get('uuid') && this.rating[rat].post_id==this.$route.params.id){
-                        switch(this.rating[rat].points){
-                            case 2: this.ratedHeart=true; break;
-                            case 1: this.ratedUpvote=true; break;
-                            case -1: this.ratedDownvote=true; break;
-                        }
-                        return true   
+                        return true
                     }
                 }
                 return false
             }
+            
         },
-
         ratePost(points){
             
             if(this.rating.length>0)
             {
                 if(Cookies.get('uuid'))
                 {
+                    
                     if(this.checkIfUserHasAlreadyRated()){
-                        this.showAlertThatUserHasAlreadyVoted()
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Ups...',
+                        text: 'Już zagłosowałeś!'
+                        })
                     }
                     else
                     {
+
                         axios.post('api/rating',{
                             user: Cookies.get('uuid'),
                             post_id: this.$route.params.id,
