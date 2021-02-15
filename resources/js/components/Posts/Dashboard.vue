@@ -14,7 +14,6 @@
                 <h3>Popularne wpisy</h3>
                 <PopularPosts :popularPost="popularPost" v-for="popularPost in popularPosts" :key="popularPost.id" />
             </div>
-            
             <div></div>
         </div>
     </div>
@@ -41,6 +40,7 @@ export default {
             .then(response => {
               this.popularPosts = response.data;
             });
+
             
             
         },
@@ -65,7 +65,7 @@ export default {
         }
     },
     
-    created(){
+    mounted(){
         this.getResults()
         this.createUserCookie()
     }

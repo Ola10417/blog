@@ -22,6 +22,7 @@ Route::get('/posts', 'App\Http\Controllers\PostsController@index');
 Route::get('/popularPosts', 'App\Http\Controllers\PostsController@getPopularPosts');
 Route::get('/posts/{id}', 'App\Http\Controllers\PostsController@show');
 Route::put('/posts/{id}', 'App\Http\Controllers\PostsController@updatePopularity');
+Route::post('/posts', 'App\Http\Controllers\PostsController@store');
 
 Route::get('/rating', 'App\Http\Controllers\RatingController@index');
 Route::post('/rating', 'App\Http\Controllers\RatingController@store');

@@ -12,6 +12,8 @@ let routes = [
     { name:'dashboard', path: '/', component: require('./components/Posts/Dashboard.vue').default },
     { name:'viewPost', path: '/posts/:id', component: require('./components/Posts/viewPost.vue').default, props: true },
     { name:'aboutMe', path: '/about-me', component: require('./components/aboutMe.vue').default},
+    { name:'manage', path: '/manage', component: require('./components/Management/ManageDashboard.vue').default},
+    { name:'newPost', path: '/newPost', component: require('./components/Management/newPost.vue').default}
   ]
 
   const router = new VueRouter({
@@ -41,10 +43,14 @@ Vue.component(
     'Comment',
     require('./components/Posts/Comment.vue').default
   );
-
+  
   
   Vue.filter('cutbody',function (val) {
-    return val.slice(0,300)+val[300].replace(/\W+/g, '')+"...";
+    if(val.length>300)
+    { 
+      return val.slice(0,300)+val[300].replace(/\W+/g, '')+"...";
+    }
+    return val
 })
 
 const app=new Vue({

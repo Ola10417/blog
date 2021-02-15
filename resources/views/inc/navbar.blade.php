@@ -17,7 +17,7 @@
                 </li>
                 @if (!Auth::guest())
                 <li class="nav-item">
-                <a class="nav-link " href="#">Zarządzaj</a>
+                <a class="nav-link " href="/#/manage">Zarządzaj</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link " title="Wyloguj się" href="{{ route('logout') }}">Wyloguj się</a>
