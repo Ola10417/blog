@@ -1905,7 +1905,7 @@ __webpack_require__.r(__webpack_exports__);
     AddPost: function AddPost() {
       var _this = this;
 
-      this.form.post('api/posts').then(function () {
+      this.form.post('/posts').then(function () {
         console.log('sukces');
         Swal.fire({
           icon: 'success',
@@ -1915,6 +1915,12 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         _this.form.reset();
+      })["catch"](function (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ups...',
+          text: 'Nie masz uprawnień!'
+        });
       });
     }
   }

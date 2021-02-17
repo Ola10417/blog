@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 class PostsController extends Controller
 {
     /**
@@ -41,16 +42,19 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'title'=>'required|string|max:255',
-            'body'=>'required'
-        ]);
-        $post=new Post();
-        $post->title=$request->title;
-        $post->body=$request->body;
-        $post->save();
+            $this->authorize('create', Post::class);
+            $this->validate($request,[
+                'title'=>'required|string|max:255',
+                'body'=>'required'
+            ]);
+            $post=new Post();
+            $post->title=$request->title;
+            $post->body=$request->body;
+            $post->save();
+            
+            return ['message' => 'Wpis został dodany'];
+       
         
-        return ['message' => 'Wpis został dodany'];
 
     }
 

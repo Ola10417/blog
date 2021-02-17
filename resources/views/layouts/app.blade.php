@@ -10,6 +10,7 @@
     <body >
         
         @include('inc.navbar')
+        
         @yield('content')
             
         <script src="https://kit.fontawesome.com/d0cf712436.js" crossorigin="anonymous"></script>   

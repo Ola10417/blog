@@ -28,7 +28,7 @@ export default {
     },
     methods:{
         AddPost(){
-            this.form.post('api/posts')
+            this.form.post('/posts')
             .then(()=>{
               console.log('sukces')
               Swal.fire({
@@ -40,6 +40,13 @@ export default {
               this.form.reset();
 
             })
+            .catch(function (error) {
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Ups...',
+                        text: 'Nie masz uprawnień!'
+                        })             
+            });
         }
     }
 }
