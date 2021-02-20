@@ -100,6 +100,10 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post=Post::find($id);
+        
+        $this->authorize('delete', $post);
+        $post->delete();
+        return ['message' => 'Wpis został usunięty'];
     }
 }

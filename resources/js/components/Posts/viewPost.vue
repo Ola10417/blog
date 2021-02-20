@@ -87,8 +87,7 @@ export default {
 
         ratePost(points){
             
-            if(this.rating.length>0)
-            {
+            
                 if(Cookies.get('uuid'))
                 {
                     if(this.checkIfUserHasAlreadyRated()){
@@ -110,12 +109,12 @@ export default {
                         })
                         .catch(function (error) {
                             console.log('blad');            
-                        });;
+                        });
                         
                     this.getRating();
                     }
                     
-                }
+                
             }
           
         },

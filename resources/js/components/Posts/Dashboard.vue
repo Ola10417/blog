@@ -6,8 +6,8 @@
                 <button >Szukaj</button>
             </div>
         <div>
-            <div v-if="!search"><Post :post="post" v-for="post in posts" :key="post.id" /></div>
-            <div v-if="search"><Post :post="post" v-for="post in filteredResources" :key="post.id" /></div>
+            <div v-if="!search"><Post :post="post" v-for="post in posts" :key="post.id" @delPost="deletePost" /></div>
+            <div v-if="search"><Post :post="post" v-for="post in filteredResources" :key="post.id" @delPost="deletePost" /></div>
         </div>
         <div>
             <div>
@@ -44,6 +44,28 @@ export default {
             
             
         },
+
+        deletePost(id){
+            axios.post('/posts/destroy/'+id,{_method: 'delete'}).then(()=>{
+              console.log('sukces')
+              Swal.fire({
+                            icon: 'success',
+                            title: 'Wpis został usnięty!',
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
+            this.getResults()
+
+            })
+            .catch(function (error) {
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Ups...',
+                        text: 'Nie udało się usunąć posta!'
+                        })             
+            });
+        },
+
         createUserCookie(){
             if(!Cookies.get('uuid'))
             {

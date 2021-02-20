@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="authUser">
         <h3>Dodaj nowy wpis</h3>
         <div>
             <form>
@@ -23,7 +23,8 @@ export default {
             form: new Form({
             title:'',
             body: ''
-            })
+            }),
+            authUser: window.authUser
         }
     },
     methods:{

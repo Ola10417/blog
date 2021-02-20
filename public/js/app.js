@@ -1859,7 +1859,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      authUser: window.authUser
+    };
+  }
+});
 
 /***/ }),
 
@@ -1898,7 +1904,8 @@ __webpack_require__.r(__webpack_exports__);
       form: new Form({
         title: '',
         body: ''
-      })
+      }),
+      authUser: window.authUser
     };
   },
   methods: {
@@ -2054,6 +2061,29 @@ __webpack_require__.r(__webpack_exports__);
         _this.popularPosts = response.data;
       });
     },
+    deletePost: function deletePost(id) {
+      var _this2 = this;
+
+      axios.post('/posts/destroy/' + id, {
+        _method: 'delete'
+      }).then(function () {
+        console.log('sukces');
+        Swal.fire({
+          icon: 'success',
+          title: 'Wpis został usnięty!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        _this2.getResults();
+      })["catch"](function (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ups...',
+          text: 'Nie udało się usunąć posta!'
+        });
+      });
+    },
     createUserCookie: function createUserCookie() {
       if (!Cookies.get('uuid')) {
         Cookies.set('uuid', uuidv4(), {
@@ -2068,11 +2098,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     searchQuery: function searchQuery() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.search = true;
       this.filteredResources = this.posts.filter(function (post) {
-        return post.title.match(_this2.searchQuery);
+        return post.title.match(_this3.searchQuery);
       });
       console.log(this.filteredResources);
     }
@@ -2128,8 +2158,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['post']
+  props: ['post'],
+  data: function data() {
+    return {
+      authUser: window.authUser
+    };
+  },
+  methods: {
+    delPost: function delPost(id) {
+      this.$emit('delPost', id);
+    }
+  }
 });
 
 /***/ }),
@@ -2238,28 +2283,25 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     ratePost: function ratePost(points) {
-      if (this.rating.length > 0) {
-        if (Cookies.get('uuid')) {
-          if (this.checkIfUserHasAlreadyRated()) {
-            this.showAlertThatUserHasAlreadyVoted();
-          } else {
-            axios.post('api/rating', {
-              user: Cookies.get('uuid'),
-              post_id: this.$route.params.id,
-              points: points
-            }).then(function (response) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Dziękujemy za ocenę!',
-                showConfirmButton: false,
-                timer: 1500
-              });
-            })["catch"](function (error) {
-              console.log('blad');
+      if (Cookies.get('uuid')) {
+        if (this.checkIfUserHasAlreadyRated()) {
+          this.showAlertThatUserHasAlreadyVoted();
+        } else {
+          axios.post('api/rating', {
+            user: Cookies.get('uuid'),
+            post_id: this.$route.params.id,
+            points: points
+          }).then(function (response) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Dziękujemy za ocenę!',
+              showConfirmButton: false,
+              timer: 1500
             });
-            ;
-            this.getRating();
-          }
+          })["catch"](function (error) {
+            console.log('blad');
+          });
+          this.getRating();
         }
       }
     }
@@ -43755,7 +43797,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _vm.authUser
+    ? _c("div", [
+        _c("h3", [_vm._v("Zarządzanie stroną")]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", [_vm._v("\n        Najnowsze komentarze\n    ")]),
+        _vm._v(" "),
+        _vm._m(1)
+      ])
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {
@@ -43763,17 +43815,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("h3", [_vm._v("Zarządzanie stroną")]),
-      _vm._v(" "),
-      _c("div", [
-        _c("a", { attrs: { href: "/#/newPost" } }, [
-          _c("button", [_vm._v("Dodaj wpis")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", [_vm._v("\n        Najnowsze komentarze\n    ")]),
-      _vm._v(" "),
-      _c("div", [_c("button", [_vm._v("Dodaj użytkownika")])])
+      _c("a", { attrs: { href: "/#/newpost" } }, [
+        _c("button", [_vm._v("Dodaj wpis")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("a", { attrs: { href: "/register" } }, [
+        _c("button", [_vm._v("Dodaj użytkownika")])
+      ])
     ])
   }
 ]
@@ -43799,77 +43853,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h3", [_vm._v("Dodaj nowy wpis")]),
-    _vm._v(" "),
-    _c("div", [
-      _c("form", [
-        _c("div", [
-          _c("label", [_vm._v("Tytuł")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.title,
-                expression: "form.title"
-              }
-            ],
-            attrs: { type: "text", name: "title" },
-            domProps: { value: _vm.form.title },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "title", $event.target.value)
-              }
-            }
-          })
-        ]),
+  return _vm.authUser
+    ? _c("div", [
+        _c("h3", [_vm._v("Dodaj nowy wpis")]),
         _vm._v(" "),
         _c("div", [
-          _c("label", [_vm._v("Treść")]),
-          _vm._v(" "),
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.body,
-                expression: "form.body"
-              }
-            ],
-            attrs: { name: "body" },
-            domProps: { value: _vm.form.body },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c("form", [
+            _c("div", [
+              _c("label", [_vm._v("Tytuł")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.title,
+                    expression: "form.title"
+                  }
+                ],
+                attrs: { type: "text", name: "title" },
+                domProps: { value: _vm.form.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "title", $event.target.value)
+                  }
                 }
-                _vm.$set(_vm.form, "body", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            attrs: { type: "submit" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.AddPost($event)
-              }
-            }
-          },
-          [_vm._v("Zapisz")]
-        )
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("label", [_vm._v("Treść")]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.body,
+                    expression: "form.body"
+                  }
+                ],
+                attrs: { name: "body" },
+                domProps: { value: _vm.form.body },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "body", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                attrs: { type: "submit" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.AddPost($event)
+                  }
+                }
+              },
+              [_vm._v("Zapisz")]
+            )
+          ])
+        ])
       ])
-    ])
-  ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -44035,7 +44091,11 @@ var render = function() {
         ? _c(
             "div",
             _vm._l(_vm.posts, function(post) {
-              return _c("Post", { key: post.id, attrs: { post: post } })
+              return _c("Post", {
+                key: post.id,
+                attrs: { post: post },
+                on: { delPost: _vm.deletePost }
+              })
             }),
             1
           )
@@ -44045,7 +44105,11 @@ var render = function() {
         ? _c(
             "div",
             _vm._l(_vm.filteredResources, function(post) {
-              return _c("Post", { key: post.id, attrs: { post: post } })
+              return _c("Post", {
+                key: post.id,
+                attrs: { post: post },
+                on: { delPost: _vm.deletePost }
+              })
             }),
             1
           )
@@ -44148,6 +44212,26 @@ var render = function() {
       ],
       1
     ),
+    _vm._v(" "),
+    _vm.authUser
+      ? _c("div", [
+          _c("form", [
+            _c(
+              "button",
+              {
+                attrs: { type: "submit" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.delPost(_vm.post.id)
+                  }
+                }
+              },
+              [_vm._v("Usuń")]
+            )
+          ])
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("h5", [_vm._v(_vm._s(_vm.post.created_at))]),
     _vm._v(" "),
