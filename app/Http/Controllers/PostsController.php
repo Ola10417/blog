@@ -89,7 +89,20 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'title'=>'required|string|max:255',
+            'body'=>'required'
+        ]);
+
+        $post=Post::find($id);
+        
+        $this->authorize('update', $post);
+        $post->title=$request->title;
+        $post->body=$request->body;
+        $post->save();
+
+        
+        return ['message' => 'Wpis został edytowany'];
     }
 
     /**

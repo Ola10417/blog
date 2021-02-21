@@ -5,6 +5,7 @@
             <form>
             <button type="submit" @click.prevent="delPost(post.id)">Usuń</button>
             </form>
+            <a v-bind:href="'/#/editpost/'+post.id"><button >Edytuj</button></a>
         </div>
         <h5>{{post.created_at}}</h5>
         <div>

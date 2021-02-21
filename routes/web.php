@@ -22,4 +22,6 @@ Route::get('logout', 'App\Http\Controllers\Auth\LoginController@logout');
 
 Route::post('/posts', 'App\Http\Controllers\PostsController@store')->middleware('auth');
 Route::delete('/posts/destroy/{id}', 'App\Http\Controllers\PostsController@destroy')->middleware('auth');
+Route::put('/posts/{id}', 'App\Http\Controllers\PostsController@update')->middleware('auth');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
