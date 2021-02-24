@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+@can('viewAny', Auth::user())
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -85,5 +86,6 @@
             </div>
         </div>
     </div>
+@endcan
 </div>
 @endsection

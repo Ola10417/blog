@@ -17,6 +17,12 @@ class CommentController extends Controller
         return Comment::all();
     }
 
+
+    public function latest()
+    {
+        return Comment::orderBy('created_at', 'desc')->take(5)->get();
+    
+    }
     /**
      * Show the form for creating a new resource.
      *

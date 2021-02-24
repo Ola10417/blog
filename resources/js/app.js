@@ -14,7 +14,8 @@ let routes = [
     { name:'aboutMe', path: '/about-me', component: require('./components/aboutMe.vue').default},
     { name:'manage', path: '/manage', component: require('./components/Management/ManageDashboard.vue').default},
     { name:'newPost', path: '/newPost', component: require('./components/Management/newPost.vue').default},
-    { name:'editPost', path: '/editPost/:id', component: require('./components/Management/editPost.vue').default}
+    { name:'editPost', path: '/editPost/:id', component: require('./components/Management/editPost.vue').default},
+    { name:'users', path: '/users', component: require('./components/Management/users.vue').default}
   ]
 
   const router = new VueRouter({

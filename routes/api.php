@@ -23,9 +23,12 @@ Route::get('/popularPosts', 'App\Http\Controllers\PostsController@getPopularPost
 Route::get('/posts/{id}', 'App\Http\Controllers\PostsController@show');
 
 
+Route::get('/users', 'App\Http\Controllers\UsersController@index');
+
 Route::get('/rating', 'App\Http\Controllers\RatingController@index');
 Route::post('/rating', 'App\Http\Controllers\RatingController@store');
 
 Route::get('/comments', 'App\Http\Controllers\CommentController@index');
 Route::get('/comments/{id}', 'App\Http\Controllers\CommentController@show');
 Route::post('/comments', 'App\Http\Controllers\CommentController@store');
+Route::get('/latestcomments', 'App\Http\Controllers\CommentController@latest');
