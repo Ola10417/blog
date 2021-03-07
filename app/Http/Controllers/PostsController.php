@@ -14,6 +14,11 @@ class PostsController extends Controller
      */
     public function index()
     {
+        return Post::latest()->paginate(6);
+    }
+
+    public function all()
+    {
         return Post::all();
     }
 

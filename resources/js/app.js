@@ -46,6 +46,7 @@ Vue.component(
     require('./components/Posts/Comment.vue').default
   );
   
+  Vue.component('pagination', require('laravel-vue-pagination'));
   
   Vue.filter('cutbody',function (val) {
     if(val.length>300)

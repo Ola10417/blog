@@ -3,11 +3,16 @@
         <div>
                 <h3>Szukaj postów</h3>
                 <input type="text" placeholder="Tytuł posta" v-model="searchQuery">
-                <button >Szukaj</button>
+                
             </div>
         <div>
-            <div v-if="!search"><Post :post="post" v-for="post in posts" :key="post.id" @delPost="deletePost" /></div>
+            <div v-if="!search"><Post :post="post" v-for="post in posts.data" :key="post.id" @delPost="deletePost" />
+            <pagination :data="posts" @pagination-change-page="getResults"></pagination>
+            </div>
+            
             <div v-if="search"><Post :post="post" v-for="post in filteredResources" :key="post.id" @delPost="deletePost" /></div>
+            
+            
         </div>
         <div>
             <div>
@@ -24,25 +29,34 @@ export default {
         return{
             search:false,
             searchQuery: null,
-            posts:[],
-            popularPosts:[],
+            posts:{},
+            allPosts:{},
+            popularPosts:{},
             filteredResources: []
         }
     },
     methods:{
-        getResults(){
-            axios.get('api/posts')
+        getResults(page=1){
+            axios.get('api/posts?page=' + page)
             .then(response => {
               this.posts = response.data;
+            });
+
+            
+        },
+
+
+        getPosts(){
+
+            axios.get('api/posts/all')
+            .then(response => {
+              this.allPosts = response.data;
             });
 
             axios.get('api/popularPosts')
             .then(response => {
               this.popularPosts = response.data;
             });
-
-            
-            
         },
 
         deletePost(id){
@@ -80,16 +94,19 @@ export default {
     watch: {
         searchQuery() {
         this.search=true
-        this.filteredResources = this.posts.filter(post =>
+        
+        this.filteredResources = this.allPosts.filter(post =>
             post.title.match(this.searchQuery)
         );
-        console.log(this.filteredResources);
+        if(this.searchQuery=="") this.search=false
+        console.log(1);
         }
     },
     
     mounted(){
         this.getResults()
         this.createUserCookie()
+        this.getPosts()
     }
 }
 </script>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Post;
 use App\Models\User;
 use App\Policies\RegisterPolicy;
+use App\Policies\PostPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
