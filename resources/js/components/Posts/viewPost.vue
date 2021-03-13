@@ -1,16 +1,23 @@
 <template>
-<div>
-    <div>
+<div class="mt-3 container">
+    <button class="btn btn-outline-secondary">Wstecz</button>
+    <div class="mt-2">
         <h3>{{post.title}}</h3>
-        <h5>{{post.created_at}}</h5>
-        <div>
-            {{post.body }}
+        <h5>{{post.created_at | getDate}}</h5>
+        <div class="pb-3" style="border-bottom:2px solid #eeeeee;" v-html="post.body">
+            
         </div>
         
     </div>
-    <div>
-            <h5>Oceń ten artykuł!</h5>
-            <div :id="post.id" >
+
+    <div class=" mt-3">
+        <div class="row">
+            <div class="col-10">
+                <h5>Napisz komentarz!</h5>
+                <Comment />
+            </div>
+
+            <div :id="post.id" class="rate col " >
             <button v-if="!ratedHeart" @click="ratePost(2)"><i class="fas fa-heart" style="font-size:32px;" ></i></button>
             <button v-if="ratedHeart" @click="showAlertThatUserHasAlreadyVoted()"><i class="fas fa-heart" style="font-size:32px; color:red;" ></i></button>
             <button v-if="!ratedUpvote" @click="ratePost(1)"><i class="far fa-thumbs-up" style="font-size:32px;"></i></button>
@@ -19,10 +26,7 @@
             <button v-if="ratedDownvote" @click="showAlertThatUserHasAlreadyVoted()"><i class="far fa-thumbs-down" style="font-size:32px; color:blue;"></i></button>
 
             </div>
-    </div>
-    <div>
-        
-        <Comment />
+        </div>
     </div>
 </div>
 </template>
@@ -41,6 +45,7 @@ export default {
         }
     },
     methods:{
+        
         getPost(){
             axios.get('api/posts/'+this.$route.params.id).then(response => {
               this.post = response.data;
@@ -127,6 +132,11 @@ export default {
 }
 </script>
 <style>
+.rate button{
+    background-color: white;
+    border: none;
+}
+
 i:hover{
     cursor: pointer;
 }

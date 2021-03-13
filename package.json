@@ -27,8 +27,12 @@
         "webpack-cli": "^4.5.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^26.0.0",
+        "@ckeditor/ckeditor5-vue2": "^1.0.5",
         "js-cookie": "^2.2.1",
         "laravel-vue-pagination": "^2.3.1",
+        "postcss-loader": "^3.0.0",
+        "raw-loader": "^0.5.1",
         "sweetalert2": "^10.14.0",
         "uuid": "^8.3.2",
         "vform": "^1.0.1",

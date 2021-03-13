@@ -1,25 +1,28 @@
 <template>
-    <div>
-        <div>
+    <div class="container mt-3">
+        <div class="row gx-5">
+            <div class="col-9">
+            <div class="">
                 <h3>Szukaj postów</h3>
-                <input type="text" placeholder="Tytuł posta" v-model="searchQuery">
+                <input type="text" placeholder="Tytuł posta" v-model="searchQuery" class="form-control">
                 
             </div>
-        <div>
-            <div v-if="!search"><Post :post="post" v-for="post in posts.data" :key="post.id" @delPost="deletePost" />
-            <pagination :data="posts" @pagination-change-page="getResults"></pagination>
+            <div class="mt-3">
+                <div v-if="!search"><Post :post="post" v-for="post in posts.data" :key="post.id" @delPost="deletePost" />
+                <pagination :data="posts" @pagination-change-page="getResults" class="mt-3"></pagination>
+                </div>
+                
+                <div v-if="search"><Post :post="post" v-for="post in filteredResources" :key="post.id" @delPost="deletePost" /></div>
+                
+                
             </div>
-            
-            <div v-if="search"><Post :post="post" v-for="post in filteredResources" :key="post.id" @delPost="deletePost" /></div>
-            
-            
-        </div>
-        <div>
-            <div>
-                <h3>Popularne wpisy</h3>
-                <PopularPosts :popularPost="popularPost" v-for="popularPost in popularPosts" :key="popularPost.id" />
             </div>
-            <div></div>
+            <div class="col-2">
+                <div>
+                    <h3 class="pb-2" style="border-bottom:2px solid #eeeeee;">Popularne wpisy</h3>
+                    <PopularPosts :popularPost="popularPost" v-for="popularPost in popularPosts" :key="popularPost.id" />
+                </div>
+            </div>
         </div>
     </div>
 </template>

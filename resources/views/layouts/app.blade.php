@@ -5,12 +5,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <title>Blog</title>
-       
+       <style>
+       a
+       {
+        color:#2f2f2f;
+        text-decoration: none; 
+       }
+       a:hover
+       {
+        color:black;
+        text-decoration: none; 
+       }
+       </style>
     </head>
     <body >
         
         @include('inc.navbar')
-        
+        @if(session()->has('success_message'))
+                <div class="alert alert-success  mt-6 text-center">
+                    {{ session()->get('success_message')}}
+                </div>
+            @endif
         @yield('content')
         
         @if (Auth::check())
@@ -18,6 +33,7 @@
         @else
             <script>window.authUser=null;</script>
         @endif    
+        
     <script src="https://kit.fontawesome.com/d0cf712436.js" crossorigin="anonymous"></script>   
     <script src="{{ mix('js/app.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>

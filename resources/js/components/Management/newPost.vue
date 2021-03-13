@@ -9,7 +9,8 @@
             </div>
             <div>
                 <label>Treść</label>
-                <textarea v-model="form.body" name="body"></textarea>
+                <ckeditor :editor="editor" v-model="form.body" name="body" :config="editorConfig"></ckeditor>
+                
             </div>
             <button type="submit" @click.prevent="AddPost">Zapisz</button>
             </form>
@@ -17,9 +18,25 @@
     </div>
 </template>
 <script>
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export default {
     data(){
         return{
+            editor: ClassicEditor,
+            editorConfig:{
+                
+                mediaEmbed: {
+                    previewsInData: true
+                },
+                ckfinder: {
+                    
+                    uploadUrl: 'http://127.0.0.1:8000/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json'
+                }
+            
+                
+            },
+
+
             form: new Form({
             title:'',
             body: ''

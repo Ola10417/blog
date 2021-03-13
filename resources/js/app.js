@@ -6,8 +6,9 @@ import Cookies from 'js-cookie'
 import { v4 as uuidv4 } from 'uuid'
 import Swal from 'sweetalert2'
 import { Form, HasError, AlertError } from 'vform'
-
+import CKEditor from '@ckeditor/ckeditor5-vue2';
 Vue.use(VueRouter)
+Vue.use( CKEditor );
 let routes = [
     { name:'dashboard', path: '/', component: require('./components/Posts/Dashboard.vue').default },
     { name:'viewPost', path: '/posts/:id', component: require('./components/Posts/viewPost.vue').default, props: true },
@@ -55,6 +56,13 @@ Vue.component(
     }
     return val
 })
+
+Vue.filter('getDate',function (val) {
+  if(val){
+  return val.substring(0,10)+" "+val.substring(11,19)
+  }
+})
+
 
 const app=new Vue({
     el:'#app',
