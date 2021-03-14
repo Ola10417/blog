@@ -21,11 +21,7 @@
     <body >
         
         @include('inc.navbar')
-        @if(session()->has('success_message'))
-                <div class="alert alert-success  mt-6 text-center">
-                    {{ session()->get('success_message')}}
-                </div>
-            @endif
+        
         @yield('content')
         
         @if (Auth::check())

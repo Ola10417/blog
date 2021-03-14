@@ -1,21 +1,28 @@
 <template>
-    <div v-if="authUser">
+    <div v-if="authUser" class="container mt-2">
         <h3>Zarządzanie stroną</h3>
-        <div v-if="this.authUser.role=='admin' || this.authUser.role=='editor'">
-            <a href="/#/newpost"><button>Dodaj wpis</button></a>
-        </div>
+
         <div>
-            Najnowsze komentarze
-            <div v-for="comment in comments" :key="comment.id">
-                <h4>{{comment.userName}}</h4>
-                <h5>{{comment.comment}}</h5>
-                <h5>{{comment.created_at}}</h5>
-                <a :href="'/#/posts/'+comment.post_id"><button>Zobacz wpis</button></a>
-            </div>
+            <span v-if="this.authUser.role=='admin' || this.authUser.role=='editor'">
+                <a href="/#/newpost"><button class="btn btn-outline-success">Dodaj wpis</button></a>
+            </span>
+            <span v-if="this.authUser.role=='admin'">
+                <a href="/register"><button class="btn btn-outline-success">Dodaj użytkownika</button></a>
+            <a href="/#/users"><button class="btn btn-outline-secondary">Pokaz uzytkownikow</button></a>
+            </span>
+            
         </div>
-        <div v-if="this.authUser.role=='admin'">
-            <a href="/register"><button>Dodaj użytkownika</button></a>
-            <a href="/#/users"><button>Pokaz uzytkownikow</button></a>
+        <div class="mt-4">
+            <h3>Najnowsze komentarze</h3>
+             <div v-if="comments.length>0">
+                <div v-for="comment in comments" v-bind:key="comment.id" class="mt-2">
+                    <div style="font-size:22px;">{{comment.userName}}</div>
+                    <div style="font-size:12px;">{{comment.created_at | getDate}}</div>
+                    <div style="font-size:18px;">{{comment.comment}}</div>
+                    <a :href="'/#/posts/'+comment.post_id" class=""><button class="btn btn-outline-primary mt-1 btn-sm">Zobacz wpis</button></a>
+                    
+                </div>
+            </div>
         </div>
     </div>
 </template>

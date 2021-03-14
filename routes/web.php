@@ -24,4 +24,7 @@ Route::post('/posts', 'App\Http\Controllers\PostsController@store')->middleware(
 Route::delete('/posts/destroy/{id}', 'App\Http\Controllers\PostsController@destroy')->middleware('auth');
 Route::put('/posts/{id}', 'App\Http\Controllers\PostsController@update')->middleware('auth');
 
+
+Route::delete('/users/destroy/{id}', 'App\Http\Controllers\UsersController@destroy');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,18 +1,20 @@
 <template>
-    <div v-if="authUser">
+    <div v-if="authUser" class="container mt-3">
         <h3>Dodaj nowy wpis</h3>
         <div>
             <form>
             <div>
-                <label>Tytuł</label>
-                <input type="text" v-model="form.title" name="title">
+                <label style="font-size:18px;">Tytuł</label>
+                <input type="text" v-model="form.title" name="title" class="form-control w-50">
             </div>
-            <div>
-                <label>Treść</label>
+            <div class="mt-2">
+                <label style="font-size:18px;">Treść</label>
                 <ckeditor :editor="editor" v-model="form.body" name="body" :config="editorConfig"></ckeditor>
                 
             </div>
-            <button type="submit" @click.prevent="AddPost">Zapisz</button>
+            <div class="mt-2">
+                <button type="submit" @click.prevent="AddPost" class="btn btn-success">Dodaj</button>
+            </div>
             </form>
         </div>
     </div>
@@ -31,7 +33,7 @@ export default {
                 ckfinder: {
                     
                     uploadUrl: 'http://127.0.0.1:8000/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json'
-                }
+                },
             
                 
             },
@@ -69,3 +71,9 @@ export default {
     }
 }
 </script>
+<style>
+  .ck-editor__editable {
+    height: 650px!important;
+    
+   }
+</style>

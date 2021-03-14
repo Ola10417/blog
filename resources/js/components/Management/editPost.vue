@@ -1,18 +1,21 @@
 <template>
-    <div v-if="authUser">
+    <div v-if="authUser" class="container mt-3">
         <h3>Edytuj wpis</h3>
         <div>
             <form>
             <div>
-                <label>Tytuł</label>
-                <input type="text" v-model="form.title" name="title" >
+                <label style="font-size:18px;">Tytuł</label>
+                <input type="text" v-model="form.title" name="title" class="form-control w-50">
             </div>
-            <div>
-                <label>Treść</label>
+            <div class="mt-2">
+                <label style="font-size:18px;">Treść</label>
                 <ckeditor :editor="editor" v-model="form.body" name="body" :config="editorConfig"></ckeditor> 
                 
             </div>
-            <button type="submit" @click.prevent="editPost()">Zapisz</button>
+            
+            <div class="mt-2">
+                <button type="submit" @click.prevent="editPost()" class="btn btn-primary">Edytuj</button>
+            </div>
             </form>
         </div>
     </div>
