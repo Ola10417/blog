@@ -1,6 +1,6 @@
 <template>
 <div class="mt-3 container">
-    <button class="btn btn-outline-secondary">Wstecz</button>
+    <button class="btn btn-outline-secondary"><a href="/#/">Wstecz</a></button>
     <div class="mt-2">
         <h3>{{post.title}}</h3>
         <h5>{{post.created_at | getDate}}</h5>

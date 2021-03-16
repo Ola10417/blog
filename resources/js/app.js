@@ -13,6 +13,7 @@ let routes = [
     { name:'dashboard', path: '/', component: require('./components/Posts/Dashboard.vue').default },
     { name:'viewPost', path: '/posts/:id', component: require('./components/Posts/viewPost.vue').default, props: true },
     { name:'aboutMe', path: '/about-me', component: require('./components/aboutMe.vue').default},
+    { name:'contact', path: '/contact-me', component: require('./components/contact.vue').default},
     { name:'manage', path: '/manage', component: require('./components/Management/ManageDashboard.vue').default},
     { name:'newPost', path: '/newPost', component: require('./components/Management/newPost.vue').default},
     { name:'editPost', path: '/editPost/:id', component: require('./components/Management/editPost.vue').default},

@@ -8,7 +8,7 @@
                     <th scope="col">Nazwa</th>
                     <th scope="col">Rola</th>
                     <th scope="col">Data utworzenia</th>
-                    <th scope="col">Edytuj</th>
+                    <!--<th scope="col">Edytuj</th>-->
                     <th scope="col">Usuń</th>
                 </tr>
             </thead>
@@ -18,7 +18,7 @@
                     <td>{{user.name}}</td>
                     <td>{{user.role}}</td>
                     <td>{{user.created_at | getDate}}</td>
-                    <td><button class="btn btn-secondary">Edytuj</button></td>
+                    <!--<td><button class="btn btn-secondary">Edytuj</button></td>-->
                     
                     <td><form><button class="btn btn-warning" @click.prevent="deleteUser(user.id)">Usuń</button></form></td>
                     
